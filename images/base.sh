@@ -36,10 +36,11 @@ WantedBy=multi-user.target
 EOF
 
   # Setup mirror list to Geo IP mirrors
-  cat <<EOF >"${MOUNT}/etc/pacman.d/mirrorlist"
-Server = https://geo.mirror.pkgbuild.com/\$repo/os/\$arch
-Server = https://mirror.rackspace.com/archlinux/\$repo/os/\$arch
-Server = https://mirror.leaseweb.net/archlinux/\$repo/os/\$arch
+  cat <<EOF >"${MOUNT}/etc/pacman.d/mirrorlist-loong64"
+Server = https://mirrors.wsyu.edu.cn/loongarch/archlinux/\$repo/os/\$arch
+Server = https://mirrors.pku.edu.cn/loongarch/archlinux/\$repo/os/\$arch
+Server = https://mirrors.nju.edu.cn/loongarch/archlinux/\$repo/os/\$arch
+Server = https://mirror.iscas.ac.cn/loongarch/archlinux/\$repo/os/\$arch
 EOF
 
   # enabling important services
@@ -54,8 +55,7 @@ systemctl enable pacman-init.service
 EOF
 
   # GRUB
-  arch-chroot "${MOUNT}" /usr/bin/grub-install --target=i386-pc "${LOOPDEV}"
-  arch-chroot "${MOUNT}" /usr/bin/grub-install --target=x86_64-efi --efi-directory=/efi --removable
+  arch-chroot "${MOUNT}" /usr/bin/grub-install --target=loongarch64-efi --efi-directory=/efi --removable
   sed -i 's/^GRUB_TIMEOUT=.*$/GRUB_TIMEOUT=1/' "${MOUNT}/etc/default/grub"
   # setup unpredictable kernel names
   sed -i 's/^GRUB_CMDLINE_LINUX=.*$/GRUB_CMDLINE_LINUX="net.ifnames=0"/' "${MOUNT}/etc/default/grub"

@@ -1,6 +1,6 @@
 #!/bin/bash
 # shellcheck disable=SC2034,SC2154
-IMAGE_NAME="Arch-Linux-x86_64-libvirt-executor-${build_version}.qcow2"
+IMAGE_NAME="Arch-Linux-loong64-libvirt-executor-${build_version}.qcow2"
 DISK_SIZE="40G"
 # https://docs.gitlab.com/runner/executors/custom.html#prerequisite-software-for-running-a-job
 PACKAGES=(git git-lfs gitlab-runner)

@@ -8,7 +8,7 @@ shopt -s extglob
 readonly DEFAULT_DISK_SIZE="2G"
 readonly IMAGE="image.img"
 # shellcheck disable=SC2016
-readonly MIRROR='https://geo.mirror.pkgbuild.com/$repo/os/$arch'
+readonly MIRROR='https://mirrors.pku.edu.cn/loongarch-lcpu/archlinux/$repo/os/$arch'
 
 function init() {
   readonly ORIG_PWD="${PWD}"
@@ -69,18 +69,18 @@ function bootstrap() {
 Architecture = auto
 
 [core]
-Include = mirrorlist
+Include = mirrorlist-loong64
 
 [extra]
-Include = mirrorlist
+Include = mirrorlist-loong64
 EOF
-  echo "Server = ${MIRROR}" >mirrorlist
+  echo "Server = ${MIRROR}" >mirrorlist-loong64
 
   # We use the hosts package cache
   pacstrap -c -C pacman.conf -K -M "${MOUNT}" base linux grub openssh sudo btrfs-progs dosfstools efibootmgr qemu-guest-agent
   # Workaround for https://gitlab.archlinux.org/archlinux/arch-install-scripts/-/issues/56
   gpgconf --homedir "${MOUNT}/etc/pacman.d/gnupg" --kill gpg-agent
-  cp mirrorlist "${MOUNT}/etc/pacman.d/"
+  cp mirrorlist-loong64 "${MOUNT}/etc/pacman.d/"
 }
 
 # Cleanup the image and trim it
